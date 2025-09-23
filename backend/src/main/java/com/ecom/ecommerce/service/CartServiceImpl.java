@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
+
     @Autowired
     private CartRepository cartRepository;
 
@@ -101,8 +102,12 @@ public class CartServiceImpl implements CartService{
         List<CartDTO> cartDTOs = carts.stream().map(cart -> {
             CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
 
-            List<ProductDTO> products = cart.getCartItems().stream()
-                    .map(p -> modelMapper.map(p.getProduct(), ProductDTO.class)).collect(Collectors.toList());
+            List<ProductDTO> products = cart.getCartItems().stream().map(cartItem -> {
+                ProductDTO productDTO = modelMapper.map(cartItem.getProduct(), ProductDTO.class);
+                productDTO.setQuantity(cartItem.getQuantity()); // Set the quantity from CartItem
+                return productDTO;
+            }).collect(Collectors.toList());
+
 
             cartDTO.setProducts(products);
 
@@ -112,7 +117,6 @@ public class CartServiceImpl implements CartService{
 
         return cartDTOs;
     }
-
     @Override
     public CartDTO getCart(String emailId, Long cartId) {
         Cart cart = cartRepository.findCartByEmailAndCartId(emailId, cartId);
@@ -215,7 +219,6 @@ public class CartServiceImpl implements CartService{
 
         return newCart;
     }
-
 
     @Transactional
     @Override
