@@ -6,13 +6,6 @@ import { FormControl, InputLabel, Select, MenuItem, Tooltip, Button } from "@mui
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const Filter = ({ categories }) => {
-//   const categories = [
-//     { categoryId: 1, categoryName: "electronics" },
-//     { categoryId: 2, categoryName: "fashion" },
-//     { categoryId: 3, categoryName: "home_appliances" },
-//     { categoryId: 4, categoryName: "books" },
-//     { categoryId: 5, categoryName: "sports" },
-//   ];
 
   const [searchParams] = useSearchParams();
     const params = new URLSearchParams(searchParams);

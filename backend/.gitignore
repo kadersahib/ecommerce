@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Ignore images and https folders ###
+images/
+https/

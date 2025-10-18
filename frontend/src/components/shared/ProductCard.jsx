@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { FaShoppingCart } from "react-icons/fa";
-import ProductViewModel from "./ProductViewModel";
+import ProductViewModel from "../shared/ProductViewModel";
+import truncateText from "../../utils/truncateText";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/actions";
+import toast from "react-hot-toast";
 
 
 const ProductCard = ({
@@ -12,19 +16,27 @@ const ProductCard = ({
     price,
     discount,
     specialPrice,
+    about = false,
+
 }) =>{
 
     const [openProductViewModal, setOpenProductViewModal] = useState(false);
     const btnLoader = false;
     const [selectedViewProduct, setSelectedViewProduct] = useState("");
     const isAvailable = quantity && Number(quantity) > 0;
+    const dispatch = useDispatch();
 
-        const handleProductView = (product) => {
-        // if (!about) {
+    const handleProductView = (product) => {
+        if (!about) {
             setSelectedViewProduct(product);
             setOpenProductViewModal(true);
-        // }
-    };
+        }
+    }
+
+    const addToCartHandler = (cartItems) =>{
+        dispatch(addToCart(cartItems,1,toast))
+    }
+    
 
     return(
         <div className="border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300">
@@ -61,13 +73,17 @@ const ProductCard = ({
                     specialPrice,
                 })
             }} className="text-lg font-semibold mb-2 cursor-pointer">
-                    {productName}
+                    {truncateText(productName, 50)}
                 </h2>
 
                 <div className="min-h-20 max-h-20">
-                    <p className="text-gray-600 text-sm">{description} </p>
+                    <p className="text-gray-600 text-sm">
+                        {truncateText(description, 80)}
+                         </p>
                 </div>
-                <div className="flex items-center justify-between">
+                
+                 {!about && (
+                     <div className="flex items-center justify-between">
                      {specialPrice ? (
                     <div className="flex flex-col items-start">
                         <span className="text-gray-400 line-through">
@@ -101,6 +117,8 @@ const ProductCard = ({
                     {isAvailable ? "Add to Cart" : "Stock Out"}
                 </button>
                 </div>
+                )}
+               
             </div> 
             <ProductViewModel
                 open = {openProductViewModal}

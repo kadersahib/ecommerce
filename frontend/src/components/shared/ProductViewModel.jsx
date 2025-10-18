@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { Divider } from '@mui/material';
 import { useState } from 'react'
-import Status from './Status';
+import Status from '../shared/Status';
 import { MdClose, MdDone } from 'react-icons/md';
 
 function ProductViewModel({open, setOpen , product , isAvailable}) {
