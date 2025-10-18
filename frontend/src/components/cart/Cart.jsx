@@ -57,6 +57,8 @@ const Cart = () =>{
                 <div className="flex text
                 -sm gap-1 flex-col">
                     <div className="flex justify-between w-full md:text-lg text-sm font-semibold">
+                
+                
                         <span>Subtotal</span>
                         <span>{formatPrice(newCart?.totalPrice)}</span>
                     </div>
