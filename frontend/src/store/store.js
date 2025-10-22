@@ -3,6 +3,7 @@ import { productReducer } from "./reducers/productReducer";
 import { errorReducer } from "./reducers/errorReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import { authReducer } from "./reducers/authReducer";
+import { paymentMethodReducer } from "./reducers/paymentMethodReducer";
 
 
 const user = localStorage.getItem("auth")
@@ -24,6 +25,7 @@ const initialState = {
         errors : errorReducer,
         carts : cartReducer,
         auth : authReducer,
+        payment : paymentMethodReducer,
     },
     preloadedState:initialState,
 })
